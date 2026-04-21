@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynatrace in 60 Seconds</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+
+    <header class="header">
+      <img class="logo" src="dt-brandmark.svg" alt="Dynatrace">
+      <h1 class="headline">Learn something about observability<br>in about a minute.</h1>
+    </header>
+
+    <main class="main">
+      <div id="video-container" class="video-card regular">
+        <div class="video-placeholder">Loading…</div>
+      </div>
+
+      <div class="segment-meta">
+        <div id="keywords" class="keywords"></div>
+        <p id="excerpt" class="excerpt"></p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <button id="next-btn" class="next-btn" aria-label="Show next clip">
+        Show me another <span class="arrow">→</span>
+      </button>
+      <span id="counter" class="counter"></span>
+    </footer>
+
+  </div>
+
+  <script src="data/segments.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
