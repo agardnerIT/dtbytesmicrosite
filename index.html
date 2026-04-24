@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dynatrace in 60 Seconds</title>
   <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="https://js-cdn.dynatrace.com/jstag/145e12d594f/bf64904yne/3b3fac1a3ffb5d9d_complete.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="page">
@@ -23,16 +24,28 @@
         <div id="keywords" class="keywords"></div>
         <p id="excerpt" class="excerpt"></p>
       </div>
+
+      <div class="report-row">
+        <button id="report-trigger" class="report-trigger" aria-haspopup="dialog">
+          Report an issue
+        </button>
+      </div>
     </main>
 
     <footer class="footer">
       <button id="next-btn" class="next-btn" aria-label="Show next clip">
         Show me another <span class="arrow">→</span>
       </button>
+      <div id="rating-bar" class="rating-bar" aria-label="Rate this clip">
+        <button id="rate-up"   class="rate-btn" aria-label="Thumbs up"   data-value="up">👍</button>
+        <button id="rate-down" class="rate-btn" aria-label="Thumbs down" data-value="down">👎</button>
+      </div>
       <span id="counter" class="counter"></span>
     </footer>
 
   </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="data/segments.js"></script>
   <script src="app.js"></script>
