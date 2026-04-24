@@ -3,6 +3,63 @@
   let index = 0;
   let ytApiReady = null;
   let activePlayer = null;
+  let currentReportVideoId = null;
+
+  // ── Rating helpers ──────────────────────────────────────────────────────────
+
+  function getRatings() {
+    try { return JSON.parse(localStorage.getItem('dtbytes_ratings') || '{}'); }
+    catch { return {}; }
+  }
+
+  function saveRating(videoId, value) {
+    try {
+      const ratings = getRatings();
+      if (value === null) { delete ratings[videoId]; }
+      else { ratings[videoId] = value; }
+      localStorage.setItem('dtbytes_ratings', JSON.stringify(ratings));
+    } catch { /* localStorage unavailable */ }
+  }
+
+  function applyRatingUI(videoId) {
+    const stored = getRatings()[videoId] ?? null;
+    document.getElementById('rate-up').classList.toggle('active', stored === 'up');
+    document.getElementById('rate-down').classList.toggle('active', stored === 'down');
+  }
+
+  function sendBizEvent(videoId, rating, previousRating) {
+    if (!window.dynatrace) return;
+    dynatrace.sendBizEvent('com.dynatrace.dtbytes.video.rated', { videoId, rating, previousRating });
+  }
+
+  let toastTimer = null;
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('visible'), 2500);
+  }
+
+  function initRating(seg) {
+    ['rate-up', 'rate-down'].forEach(id => {
+      const btn = document.getElementById(id);
+      const clone = btn.cloneNode(true);
+      btn.parentNode.replaceChild(clone, btn);
+    });
+
+    document.getElementById('rate-up').addEventListener('click', () => handleRateClick(seg.videoId, 'up'));
+    document.getElementById('rate-down').addEventListener('click', () => handleRateClick(seg.videoId, 'down'));
+  }
+
+  function handleRateClick(videoId, value) {
+    const previousRating = getRatings()[videoId] ?? null;
+    if (value === previousRating) return;
+    saveRating(videoId, value);
+    applyRatingUI(videoId);
+    sendBizEvent(videoId, value, previousRating);
+    showToast('Thanks for the feedback!');
+  }
 
   // ── YouTube IFrame API ──────────────────────────────────────────────────────
 
@@ -103,7 +160,67 @@
       document.getElementById('excerpt').textContent = `"${text}"`;
 
       document.getElementById('counter').textContent = `clip ${position} of ${total}`;
+
+      currentReportVideoId = seg.videoId;
+      applyRatingUI(seg.videoId);
+      initRating(seg);
     }, 250);
+  }
+
+  // ── Report modal ────────────────────────────────────────────────────────────
+
+  function initReportModal() {
+    let reportVideoId = null;
+
+    const dialog = document.createElement('dialog');
+    dialog.id = 'report-modal';
+    dialog.className = 'report-modal';
+    dialog.innerHTML = `
+      <form id="report-form" novalidate>
+        <h2 class="report-title">Report an issue</h2>
+        <fieldset class="report-fieldset">
+          <legend class="sr-only">Issue category</legend>
+          <label class="report-option"><input type="radio" name="category" value="out_of_date"> Out of date</label>
+          <label class="report-option"><input type="radio" name="category" value="incorrect_information"> Incorrect information</label>
+          <label class="report-option"><input type="radio" name="category" value="broken_video"> Broken video</label>
+          <label class="report-option"><input type="radio" name="category" value="other"> Other</label>
+        </fieldset>
+        <label class="report-detail-label" for="report-detail">
+          Additional detail <span class="optional">(optional)</span>
+        </label>
+        <textarea id="report-detail" class="report-detail" rows="3" maxlength="500" placeholder="Tell us more…"></textarea>
+        <div class="report-actions">
+          <button type="button" id="report-cancel" class="report-cancel-btn">Cancel</button>
+          <button type="submit" class="report-submit-btn">Submit report</button>
+        </div>
+      </form>`;
+    document.body.appendChild(dialog);
+
+    const form = document.getElementById('report-form');
+
+    document.getElementById('report-trigger').addEventListener('click', () => {
+      reportVideoId = currentReportVideoId;
+      form.reset();
+      dialog.showModal();
+    });
+
+    document.getElementById('report-cancel').addEventListener('click', () => dialog.close());
+
+    dialog.addEventListener('mousedown', e => {
+      if (e.target === dialog) dialog.close();
+    });
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const category = form.querySelector('input[name="category"]:checked')?.value;
+      if (!category) return;
+      const details = document.getElementById('report-detail').value.trim();
+      if (window.dynatrace) {
+        dynatrace.sendBizEvent('com.dynatrace.dtbytes.video.reported', { videoId: reportVideoId, category, details });
+      }
+      showToast('Thanks — your report has been submitted.');
+      dialog.close();
+    });
   }
 
   // ── Shuffle, next, init ─────────────────────────────────────────────────────
@@ -130,6 +247,7 @@
     shuffle(segments);
     showSegment(segments[0], segments.length, 1);
     document.getElementById('next-btn').addEventListener('click', next);
+    initReportModal();
   }
 
   document.addEventListener('DOMContentLoaded', init);
