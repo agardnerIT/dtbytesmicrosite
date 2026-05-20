@@ -1,6 +1,4 @@
 window.SEGMENTS_DATA = {
-  "generated": "2026-04-21T01:25:36.005Z",
-  "total": 53,
   "segments": [
     {
       "videoId": "wzQ1jqDd3bY",
@@ -10,7 +8,7 @@ window.SEGMENTS_DATA = {
       "score": 22.8,
       "excerpt": "Reactions are genuine. Perfect.  well I guess  let's kick it off and see what happens if we press the  create a new service level objective. Okay, let's do it. Yeah. So what we have here is we have a couple of preconfigured templates. Now I know in your case you have a very specific environmen",
       "topKeywords": [
-        "open telemetry",
+        "OpenTelemetry",
         "service level",
         "telemetry",
         "kubernetes",
@@ -43,7 +41,7 @@ window.SEGMENTS_DATA = {
       "excerpt": "somebody that was actually triaging the problem already identified there was a failure rate increase.  it went with an order vole drop. So again connecting technical information with business information and then how they troubleshooted everything. All right. So we are from a Dynatrace perspect",
       "topKeywords": [
         "root cause",
-        "open telemetry",
+        "OpenTelemetry",
         "telemetry",
         "metric",
         "traces",
@@ -59,7 +57,7 @@ window.SEGMENTS_DATA = {
       "excerpt": "I also wanted to highlight a key point in u performance engineering inside reliability engineering is about understanding patterns and behaviors over time. So what you see here on the bottom are the four golden signals that we put here because we believe these are very important for service owners.",
       "topKeywords": [
         "observability",
-        "open telemetry",
+        "OpenTelemetry",
         "telemetry",
         "metric",
         "traces",
@@ -72,10 +70,10 @@ window.SEGMENTS_DATA = {
       "startSeconds": 193,
       "durationSeconds": 72,
       "score": 17.3,
-      "excerpt": "of the open telemetry demo apps that we host here on the playground. So with a single click I now get to see all the problems that Dynatrace has detected on the Atoshop namespace for availability error or slowdown. Before I jp into the details, two things. If this is a filter that I'm interested",
+      "excerpt": "of the OpenTelemetry demo apps that we host here on the playground. So with a single click I now get to see all the problems that Dynatrace has detected on the Atoshop namespace for availability error or slowdown. Before I jp into the details, two things. If this is a filter that I'm interested",
       "topKeywords": [
         "root cause",
-        "open telemetry",
+        "OpenTelemetry",
         "telemetry",
         "davis",
         "error rate",
@@ -90,7 +88,7 @@ window.SEGMENTS_DATA = {
       "score": 17.2,
       "excerpt": "about logs  infrastructure. We can directly see on which parts is it running in which processes in which clusters with a direct link you get there or you can just open up  these  these table views here and then you get the key  performance metrics or metrics in general about this particular",
       "topKeywords": [
-        "open telemetry",
+        "OpenTelemetry",
         "telemetry",
         "kubernetes",
         "davis",
@@ -104,9 +102,9 @@ window.SEGMENTS_DATA = {
       "startSeconds": 62,
       "durationSeconds": 72,
       "score": 16.1,
-      "excerpt": "So, what is a node? A node is a monitored thing. It could be a physical thing like a host or a logical thing like an S3 bucket. Nodes are where telemetry signals, that's logs, metrics, traces, and events, come from. Nodes are created in Dynatrace when you ingest Open Telemetry, install the OneAgent,",
+      "excerpt": "So, what is a node? A node is a monitored thing. It could be a physical thing like a host or a logical thing like an S3 bucket. Nodes are where telemetry signals, that's logs, metrics, traces, and events, come from. Nodes are created in Dynatrace when you ingest OpenTelemetry, install the OneAgent,",
       "topKeywords": [
-        "open telemetry",
+        "OpenTelemetry",
         "telemetry",
         "kubernetes",
         "metric",
@@ -122,7 +120,7 @@ window.SEGMENTS_DATA = {
       "score": 15.2,
       "excerpt": "Captain providing a metric server that could be used as an interface to let you send data query DQL straight into your cluster. What if you stick with built-in metric? Let's say you don't want to extend your cluster metric server. Can we still scale smartly based on service behavior? Yes, obviously",
       "topKeywords": [
-        "open telemetry",
+        "OpenTelemetry",
         "telemetry",
         "kubernetes",
         "error rate",
@@ -154,7 +152,7 @@ window.SEGMENTS_DATA = {
       "score": 13.3,
       "excerpt": "Now, with the emergence of AI regulations such as the EU's artificial intelligence act and others around the world, AI providers are now potentially falling under legal obligations to ensure their AI training and usage meets certain requirements. Dynatrace can be used to help and achieve this. Dotr",
       "topKeywords": [
-        "open telemetry",
+        "OpenTelemetry",
         "telemetry",
         "metric",
         "traces",
@@ -170,7 +168,7 @@ window.SEGMENTS_DATA = {
       "score": 13.3,
       "excerpt": "Dynetra University.  you you just mentioned it. We're we're putting a lot of stuff there, new content. And so also this is true for log management and administration of it. So this is going to be a new course that's available and we are also linking some of the other content like those those best",
       "topKeywords": [
-        "open telemetry",
+        "OpenTelemetry",
         "telemetry",
         "metric",
         "traces",
@@ -311,7 +309,7 @@ window.SEGMENTS_DATA = {
       "score": 11.3,
       "excerpt": "That's pretty cool. I did not know that. I learned something new. >> Yeah, that's the cool thing. Yeah, like you said, >> metric extraction, writing down metrics  eventually  defining permissions and finally how long do you want to store it >> is always  a thing. >> Do I need this data point j",
       "topKeywords": [
-        "open telemetry",
+        "OpenTelemetry",
         "telemetry",
         "metric",
         "logs",
@@ -341,7 +339,7 @@ window.SEGMENTS_DATA = {
       "score": 10.4,
       "excerpt": "Additionally, the project has a legacy component called topbf which does not emit any logs or any metrics. In this episode, we'll provide two testing solutions. One using top BPF. This requires fewer components and more configurations and the other one using BPF stats. That is the easy solution for",
       "topKeywords": [
-        "open telemetry",
+        "OpenTelemetry",
         "telemetry",
         "metric",
         "logs"
@@ -482,7 +480,7 @@ window.SEGMENTS_DATA = {
       "score": 6.6,
       "excerpt": "Dynatrace MCP server. And we can see the output here. We're connecting. And this is a good sign. we see the discovered 15 tools. That means that these are basically the  the API endpoints that are made available  by the MCP server to our MCP client. So this is a good sign and we can start interact",
       "topKeywords": [
-        "open telemetry",
+        "OpenTelemetry",
         "telemetry",
         "kubernetes"
       ]

@@ -1,0 +1,188 @@
+id: b13762aa-c5ec-4ff1-a87a-a2635b89370f
+name: "dtbytes microsite"
+type: dashboard
+content:
+  annotations: []
+  importedWithCode: false
+  settings:
+    defaultTimeframe:
+      enabled: true
+      value:
+        from: now()-7d
+        to: now()
+  layouts:
+    "title":
+      x: 0
+      "y": 0
+      w: 24
+      h: 2
+    "shown-kpi":
+      x: 0
+      "y": 2
+      w: 8
+      h: 4
+    "kind-pie":
+      x: 8
+      "y": 2
+      w: 16
+      h: 4
+    "top-items":
+      x: 0
+      "y": 6
+      w: 24
+      h: 8
+    "ratings-kpi":
+      x: 0
+      "y": 14
+      w: 8
+      h: 4
+    "thumbs-pie":
+      x: 8
+      "y": 14
+      w: 16
+      h: 4
+    "reports-kpi":
+      x: 0
+      "y": 18
+      w: 8
+      h: 4
+    "report-categories":
+      x: 8
+      "y": 18
+      w: 16
+      h: 4
+  tiles:
+    "title":
+      title: ""
+      type: markdown
+      content: |
+        # dtbytes microsite
+        What got watched or read.
+    "shown-kpi":
+      title: "Total items shown"
+      type: data
+      query: |
+        fetch bizevents
+        | filter event.type == "com.dynatrace.dtbytes.item.shown"
+        | summarize cnt = count()
+      visualization: singleValue
+      visualizationSettings:
+        autoSelectVisualization: false
+        singleValue:
+          showLabel: true
+          label: "views"
+          recordField: cnt
+      davis:
+        enabled: false
+        davisVisualization:
+          isAvailable: true
+    "kind-pie":
+      title: "Video vs text"
+      type: data
+      query: |
+        fetch bizevents
+        | filter event.type == "com.dynatrace.dtbytes.item.shown"
+        | summarize cnt = count(), by:{kind}
+      visualization: pieChart
+      visualizationSettings:
+        autoSelectVisualization: false
+        chartSettings:
+          legend:
+            position: right
+            showLegend: true
+      davis:
+        enabled: false
+        davisVisualization:
+          isAvailable: true
+    "top-items":
+      title: "Items watched / read"
+      type: data
+      query: |
+        fetch bizevents
+        | filter event.type == "com.dynatrace.dtbytes.item.shown"
+        | fieldsAdd item = coalesce(videoId, snippetId)
+        | summarize views = count(), by:{kind, item}
+        | sort views desc
+        | limit 50
+      visualization: table
+      visualizationSettings:
+        autoSelectVisualization: false
+        table:
+          linewrapEnabled: true
+      davis:
+        enabled: false
+        davisVisualization:
+          isAvailable: true
+    "ratings-kpi":
+      title: "Total ratings"
+      type: data
+      query: |
+        fetch bizevents
+        | filter in(event.type, array("com.dynatrace.dtbytes.video.rated", "com.dynatrace.dtbytes.text.rated"))
+        | summarize cnt = count()
+      visualization: singleValue
+      visualizationSettings:
+        autoSelectVisualization: false
+        singleValue:
+          showLabel: true
+          label: "ratings"
+          recordField: cnt
+      davis:
+        enabled: false
+        davisVisualization:
+          isAvailable: true
+    "thumbs-pie":
+      title: "Thumbs up vs down"
+      type: data
+      query: |
+        fetch bizevents
+        | filter in(event.type, array("com.dynatrace.dtbytes.video.rated", "com.dynatrace.dtbytes.text.rated"))
+        | summarize cnt = count(), by:{rating}
+      visualization: pieChart
+      visualizationSettings:
+        autoSelectVisualization: false
+        chartSettings:
+          legend:
+            position: right
+            showLegend: true
+      davis:
+        enabled: false
+        davisVisualization:
+          isAvailable: true
+    "reports-kpi":
+      title: "Reports filed"
+      type: data
+      query: |
+        fetch bizevents
+        | filter event.type == "com.dynatrace.dtbytes.video.reported"
+        | summarize cnt = count()
+      visualization: singleValue
+      visualizationSettings:
+        autoSelectVisualization: false
+        singleValue:
+          showLabel: true
+          label: "reports"
+          recordField: cnt
+      davis:
+        enabled: false
+        davisVisualization:
+          isAvailable: true
+    "report-categories":
+      title: "Report categories"
+      type: data
+      query: |
+        fetch bizevents
+        | filter event.type == "com.dynatrace.dtbytes.video.reported"
+        | summarize cnt = count(), by:{category}
+        | sort cnt desc
+      visualization: pieChart
+      visualizationSettings:
+        autoSelectVisualization: false
+        chartSettings:
+          legend:
+            position: right
+            showLegend: true
+      davis:
+        enabled: false
+        davisVisualization:
+          isAvailable: true

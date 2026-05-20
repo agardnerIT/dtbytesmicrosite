@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dynatrace in 60 Seconds</title>
+
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Dynatrace Bytes">
+  <meta property="og:title"       content="Dynatrace in 60 Seconds">
+  <meta property="og:description" content="Learn something about observability in about a minute.">
+  <meta property="og:url"         content="https://dtbytes.dynatrace.com/">
+  <meta property="og:image"       content="https://dtbytes.dynatrace.com/wave1.png">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Dynatrace in 60 Seconds">
+  <meta name="twitter:description" content="Learn something about observability in about a minute.">
+  <meta name="twitter:image"       content="https://dtbytes.dynatrace.com/wave1.png">
+
   <link rel="stylesheet" href="style.css">
   <script type="text/javascript" src="https://js-cdn.dynatrace.com/jstag/145e12d594f/bf64904yne/3b3fac1a3ffb5d9d_complete.js" crossorigin="anonymous"></script>
 </head>
@@ -13,19 +25,40 @@
     <header class="header">
       <img class="logo" src="dt-brandmark.svg" alt="Dynatrace">
       <h1 class="headline">Learn something about observability<br>in about a minute.</h1>
+      <div id="mode-switcher" class="mode-toggle" role="tablist" aria-label="Learning mode" hidden>
+        <button type="button" class="mode-toggle-option" data-mode="text"  role="tab" aria-selected="false">
+          <span class="mode-toggle-icon" aria-hidden="true">📖</span><span>Text</span>
+        </button>
+        <button type="button" class="mode-toggle-option" data-mode="both"  role="tab" aria-selected="false">
+          <span class="mode-toggle-icon" aria-hidden="true">✨</span><span>Both</span>
+        </button>
+        <button type="button" class="mode-toggle-option" data-mode="video" role="tab" aria-selected="false">
+          <span class="mode-toggle-icon" aria-hidden="true">▶️</span><span>Video</span>
+        </button>
+      </div>
     </header>
 
     <main class="main">
-      <div id="video-container" class="video-card regular">
+      <div id="video-container" class="video-card regular" hidden>
+        <div class="video-placeholder">Loading…</div>
+      </div>
+
+      <div id="snippet-container" class="snippet-card" hidden>
         <div class="video-placeholder">Loading…</div>
       </div>
 
       <div class="segment-meta">
         <div id="keywords" class="keywords"></div>
-        <p id="excerpt" class="excerpt"></p>
+        <p id="excerpt" class="excerpt" hidden></p>
       </div>
 
       <div class="report-row">
+        <button id="share-trigger" class="report-trigger share-trigger" aria-label="Share this clip">
+          <span class="share-icon" aria-hidden="true">🔗</span> Share
+        </button>
+        <button id="subscribe-trigger" class="report-trigger" aria-haspopup="dialog">
+          Notify me of new clips
+        </button>
         <button id="report-trigger" class="report-trigger" aria-haspopup="dialog">
           Report an issue
         </button>
@@ -48,6 +81,7 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="data/segments.js"></script>
+  <script src="data/snippets.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
